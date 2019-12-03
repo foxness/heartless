@@ -7,7 +7,17 @@ const rootpath = path.join(path.dirname(__dirname), 'files');
 
 let middleware = (req, res, next) =>
 {
-    fs.readdir(rootpath, (err, files) =>
+    let a = req.originalUrl.split('/').slice(2)
+    a.unshift("")
+    if (a.length == 1)
+    {
+        a.unshift("")
+    }
+
+    let urlpath = a.join('/')
+    let fullpath = path.join(rootpath, urlpath)
+
+    fs.readdir(fullpath, (err, files) =>
     {
         if (err)
         {
@@ -16,23 +26,22 @@ let middleware = (req, res, next) =>
 
         let fcontent = ""
 
-        let a = req.originalUrl.split('/').slice(2)
-        a.unshift("")
-        if (a.length == 1)
+        if (urlpath != '/')
         {
+            let a = urlpath.split('/')
+            a.pop()
             a.unshift("")
+            a = a.join('/')
+
+            fcontent += "<li><a href=\"/files" + (a == '/' ? "" : a) + "/\">...</a></li>"
         }
-
-        let urlpath = a.join('/')
-
-        console.log(urlpath)
 
         files.forEach((file) =>
         {
-            let fullpath = path.join(rootpath, file);
-            let dir = fs.lstatSync(fullpath).isDirectory()
+            let filepath = path.join(fullpath, file);
+            let isdir = fs.lstatSync(filepath).isDirectory()
 
-            let fc = dir ? "<li><a href=\"/files/" + file + "\">" + file + "</a></li>"
+            let fc = isdir ? "<li><a href=\"/files" + (urlpath == '/' ? "" : urlpath) + "/" + file + "\">" + file + "</a></li>"
                      : "<li>" + file + "</li>"
 
             fcontent += fc
