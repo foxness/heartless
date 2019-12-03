@@ -7,26 +7,32 @@ var fs = require('fs');
 
 const rootpath = path.join(path.dirname(__dirname), 'files');
 
-/* GET users listing. */
 router.get('/', function (req, res)
 {
-    //passsing directoryPath and callback function
     fs.readdir(rootpath, (err, files) =>
     {
-        //handling error
-        if (err) {
+        if (err)
+        {
             return console.log('Unable to scan directory: ' + err);
         }
-        //listing all files using forEach
-        files.forEach(function (file) {
-            // Do whatever you want to do with the file
+
+        let fcontent = ""
+
+        console.log(req.baseUrl)
+
+        files.forEach((file) =>
+        {
+            let fullpath = path.join(rootpath, file);
+            let dir = fs.lstatSync(fullpath).isDirectory()
+            fcontent += "<li>" + file + " " + dir + "</li>"
+            
             console.log(file);
         });
+          
+        let content = "<!DOCTYPE html><html><body><h1>Files</h1><p>My first paragraph.</p><ul>" + fcontent + "</ul></body></html>";
+
+        res.send(content);
     });
-
-    res.send('respond with a resource');
 });
-
-
 
 module.exports = router;

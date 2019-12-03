@@ -67,10 +67,10 @@ var server = app.listen(app.get('port'), function () {
 });
 
 
-// CONSOLE PAUSE BELOW
+// // CONSOLE PAUSE BELOW
 
-console.log('Press any key to exit');
+// console.log('Press any key to exit');
 
-process.stdin.setRawMode(true);
-process.stdin.resume();
-process.stdin.on('data', process.exit.bind(process, 0));
+// process.stdin.setRawMode(true);
+// process.stdin.resume();
+// process.stdin.on('data', process.exit.bind(process, 0));
