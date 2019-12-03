@@ -7,7 +7,14 @@ const rootpath = path.join(path.dirname(__dirname), 'files');
 
 let middleware = (req, res, next) =>
 {
-    let a = req.originalUrl.split('/').slice(2)
+    let a = req.originalUrl
+
+    if (a[a.length - 1] == '/')
+    {
+        a = a.substring(0, a.length - 1)
+    }
+
+    a = a.split('/').slice(2)
     a.unshift("")
     if (a.length == 1)
     {
@@ -30,8 +37,9 @@ let middleware = (req, res, next) =>
         {
             let a = urlpath.split('/')
             a.pop()
-            a.unshift("")
             a = a.join('/')
+
+            console.log(a)
 
             fcontent += "<li><a href=\"/files" + (a == '/' ? "" : a) + "/\">...</a></li>"
         }
@@ -45,8 +53,6 @@ let middleware = (req, res, next) =>
                      : "<li>" + file + "</li>"
 
             fcontent += fc
-            
-            console.log(file);
         });
           
         let content = "<!DOCTYPE html><html><body><h1>" + urlpath + "</h1><ul>" + fcontent + "</ul></body></html>";
