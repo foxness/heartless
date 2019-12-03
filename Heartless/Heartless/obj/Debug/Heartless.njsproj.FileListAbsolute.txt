@@ -1,0 +1,2 @@
+R:\my\projects\heartless\Heartless\Heartless\obj\Debug\Heartless.njsprojAssemblyReference.cache
+R:\my\projects\heartless\Heartless\Heartless\bin\Microsoft.NodejsTools.WebRole.dll
