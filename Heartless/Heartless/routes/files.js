@@ -49,7 +49,7 @@ let middleware = (req, res, next) =>
             console.log(file);
         });
           
-        let content = "<!DOCTYPE html><html><body><h1>Files</h1><p>" + rootpath + "</p><ul>" + fcontent + "</ul></body></html>";
+        let content = "<!DOCTYPE html><html><body><h1>" + urlpath + "</h1><ul>" + fcontent + "</ul></body></html>";
 
         res.send(content);
     });
