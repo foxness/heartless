@@ -8,7 +8,7 @@ const rootpath = path.join(path.dirname(__dirname), 'files');
 let middleware = (req, res, next) =>
 {
     let a = req.originalUrl
-
+    
     if (a[a.length - 1] == '/')
     {
         a = a.substring(0, a.length - 1)
@@ -38,8 +38,6 @@ let middleware = (req, res, next) =>
             let a = urlpath.split('/')
             a.pop()
             a = a.join('/')
-
-            console.log(a)
 
             fcontent += "<li><a href=\"/files" + (a == '/' ? "" : a) + "/\">...</a></li>"
         }
